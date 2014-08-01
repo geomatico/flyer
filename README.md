@@ -1,0 +1,4 @@
+flyer
+=====
+
+Disposable map viewer
