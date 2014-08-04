@@ -16,7 +16,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	base.addTo(map);
 	var control = base.control;
 	
-	var url = "http://sorteny.fonts.cat/geoserver/wms" // "http://demo.opengeo.org/geoserver/wms"; // TODO editable, not harcoded
+	var url = "/geoserver/wms";
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays);
 	var overlays = [];
