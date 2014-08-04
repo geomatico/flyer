@@ -10,6 +10,7 @@ var require = (function() {
 			"jquery-xdomainrequest": LIB_PATH + "jquery-xdomainrequest-1.0.1.min",
 			"bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min",
 			"leaflet": "//cdn.leafletjs.com/leaflet-0.7.3/leaflet",
+			"leaflet-info-wms": LIB_PATH + "L.TileLayer.InfoWMS",
 			"leaflet-hash": LIB_PATH + "leaflet-hash",
 			"bing": LIB_PATH + "leaflet-bing"
 		},
@@ -27,6 +28,9 @@ var require = (function() {
 				deps: ["leaflet"]
 			},
 			"leaflet-hash": {
+				deps: ["leaflet"]
+			},
+			"leaflet-info-wms": {
 				deps: ["leaflet"]
 			}
 		}

@@ -6,12 +6,16 @@ define(["http", "xml"], function(http, xml) {
 		service: function(url) {
 			function getCapabilities() {
 				var params = {
-					url: url,
 					service: "wms",
 					version: "1.3.0",
 					request: "GetCapabilities"
 				}
-				return http.get("proxy/", params).then(function(response) {
+				// If WMS address is absolute, proxify
+				if(url.indexOf("//") > -1) {
+					params.url = url;
+					url = "proxy/";
+				}
+				return http.get(url, params).then(function(response) {
 					return xml.read(response, true);
 				});				
 			}
