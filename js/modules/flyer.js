@@ -35,5 +35,14 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 			overlays.push(layer);
 		}
 	}
+
+	// Add signature
+	var signature = L.control({position: "bottomright"});
+	signature.onAdd = function(map) {
+		var div = L.DomUtil.create("div", "leaflet-control-attribution");
+		div.innerHTML = '<div>WMS Light Viewer assembled by <a href="http://fonts.cat" target="_blank">Oscar Fonts</a>, <a href="http://geomati.co" target="_blank">geomati.co</a>, 2014';
+		return div;
+	}
+	signature.addTo(map);
 });
 
