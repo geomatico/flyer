@@ -16,13 +16,12 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	base.addTo(map);
 	var control = base.control;
 	
-	var url = "http://sorteny.fonts.cat/geoserver/wms" // "http://demo.opengeo.org/geoserver/wms"; // TODO editable, not harcoded
+	var url = "/geoserver/wms";
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays);
 	var overlays = [];
 
 	function updateOverlays(layers) {
-		// TODO delete previous overlays
 		for (var i in layers) {
 			var title = layers[i].title;
 			var name = layers[i].name;
@@ -43,12 +42,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var signature = L.control({position: "bottomright"});
 	signature.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "leaflet-control-attribution");
-		div.innerHTML = '<div>Coded by <a href="http://fonts.cat" target="_blank">Oscar Fonts</a>, <a href="http://geomati.co" target="_blank">geomati.co</a>, 2014';
-        //div.style.backgroundColor = "rgba(255,255,255,0.7)";
-		//div.style.padding = "8px";
-		//div.style.fontSize = "11px";
-		//div.style.textAlign = "right";
-		//div.style.textDecoration = "none";
+		div.innerHTML = '<div>WMS Light Viewer assembled by <a href="http://fonts.cat" target="_blank">Oscar Fonts</a>, <a href="http://geomati.co" target="_blank">geomati.co</a>, 2014';
 		return div;
 	}
 	signature.addTo(map);
