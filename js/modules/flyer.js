@@ -16,13 +16,12 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-hash', 'css!flyer.css'], fu
 	base.addTo(map);
 	var control = base.control;
 	
-	var url = "http://sorteny.fonts.cat/geoserver/wms"; // TODO externalize
+	var url = "http://demo.opengeo.org/geoserver/wms"; // TODO editable, not harcoded
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays);
 	var overlays = [];
 
 	function updateOverlays(layers) {
-		// TODO delete previous overlays
 		for (var i in layers) {
 			var title = layers[i].title;
 			var name = layers[i].name;
@@ -36,7 +35,5 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-hash', 'css!flyer.css'], fu
 			overlays.push(layer);
 		}
 	}
-
-
 });
 
