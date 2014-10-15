@@ -5,18 +5,20 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var map = L.map('map').setView([41.5, 2], 8);
 	var hash = new L.Hash(map);
 	//map.locate({setView: true, maxZoom: 16});
-
+	
 	// Base layers
     var base = layers.create({
-        "Watercolor": {type: "stamen", id: "watercolor"},
-        "Toner": {type: "stamen", id: "toner"},
-        "Roads": {type: "bing", id: "Road"},
-        "Satellite": {type: "bing", id: "AerialWithLabels"}
+        /*"Satellite": {type: "bing", id: "Aerial"},
+        "Hybrid": {type: "bing", id: "AerialWithLabels"},*/
+        "Satellite": {type: "here", id: "satellite.day"},
+        "Hybrid": {type: "here", id: "hybrid.day"},        
+        "Roads": {type: "hydda", id: "hydda"}
+        //"Roads": {type: "bing", id: "Road"}
     });
 	base.addTo(map);
 	var control = base.control;
-	
-	var url = "/geoserver/wms";
+
+	var url = "http://sorteny.fonts.cat/geoserver/Giswater/wms";
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays);
 	var overlays = [];
