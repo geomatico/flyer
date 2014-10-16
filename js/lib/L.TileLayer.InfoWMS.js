@@ -50,7 +50,8 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
           y: point.y,
           layers: this.wmsParams.layers,
           query_layers: this.wmsParams.layers,
-          info_format: 'text/html'
+          info_format: 'text/html',
+          feature_count: 20
         };
 
     // Cross-domain info request with no CORS headers need a proxy...
