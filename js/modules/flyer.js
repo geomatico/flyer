@@ -18,10 +18,28 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	base.addTo(map);
 	var control = base.control;
 
-	var url = "http://maps.bgeo.es/geoserver/Giswater/wms";
+	var url = "http://maps.bgeo.es/geoserver/";
+	// get workspace
+	var workspace = getQueryVariable("ws");
+	if(workspace) url += workspace + "/";
+	url += "wms";
+	
+	// get capabilities, parse, get layers and center
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays).then(centerMap);
 	var overlays = [];
+	
+	function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        } 
+        //alert('Query Variable ' + variable + ' not found');
+    }
 	
 	function centerMap() {
 	    var bbox = wms.getBbox();
@@ -52,7 +70,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var signature = L.control({position: "bottomright"});
 	signature.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "leaflet-control-attribution");
-		div.innerHTML = '<div>WMS Light Viewer assembled by <a href="http://fonts.cat" target="_blank">Oscar Fonts</a>, <a href="http://geomati.co" target="_blank">geomati.co</a>, 2014';
+		div.innerHTML = '<div>Assembled by <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014';
 		return div;
 	}
 	signature.addTo(map);
