@@ -20,8 +20,16 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 
 	var url = "http://maps.bgeo.es/geoserver/Giswater/wms";
 	var service = wms.service(url);
-	service.getLayers().then(updateOverlays);
+	service.getLayers().then(updateOverlays).then(centerMap);
 	var overlays = [];
+	
+	function centerMap() {
+	    var bbox = wms.getBbox();
+	    var southWest = L.latLng(bbox.miny, bbox.minx),
+	    northEast = L.latLng(bbox.maxy, bbox.maxx),
+	    bounds = L.latLngBounds(southWest, northEast);
+	    map.fitBounds(bounds);
+	}
 
 	function updateOverlays(layers) {
 		for (var i in layers) {
@@ -52,7 +60,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var logo = L.control({position: "bottomright"});
 	logo.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "info legend");
-		div.innerHTML = '<img width="180" src="http://maps.bgeo.es/geoserver/www/logo.png">&nbsp;&nbsp;&nbsp;&nbsp;<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/MNarrow.svg/24px-MNarrow.svg.png">';
+		div.innerHTML = '<img width="110" src="http://maps.bgeo.es/geoserver/www/logo.png">&nbsp;&nbsp;&nbsp;&nbsp;<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/MNarrow.svg/24px-MNarrow.svg.png">';
         div.style.backgroundColor = "rgba(255,255,255,0.7)";
 		div.style.padding = "8px";
 		return div;
