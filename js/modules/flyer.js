@@ -80,9 +80,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "logo");
-		div.innerHTML = '<img width="80" src="http://maps.bgeo.es/geoserver/www/logo_small.png">';
-        div.style.backgroundColor = "rgba(255,255,255,0.7)";
-		div.style.padding = "5px";
+		div.innerHTML = '<img src="http://maps.bgeo.es/geoserver/www/logo_small.png">';
 		return div;
 	}
 	logo.addTo(map);

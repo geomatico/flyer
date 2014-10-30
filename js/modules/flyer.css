@@ -6,5 +6,7 @@ html, body, #map {
     height: 100%;
 }
 .logo {
+	/*background-color: rgba(255,255,255,0.7);*/
 	clear: none !important; /* must overwrite clear:both in .leaflet-control */
+	/*padding: 5px;*/
 }
