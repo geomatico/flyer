@@ -76,12 +76,12 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	}
 	signature.addTo(map);
 
-	var logo = L.control({position: "bottomright"});
+	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
-		var div = L.DomUtil.create("div", "info legend");
-		div.innerHTML = '<img width="110" src="http://maps.bgeo.es/geoserver/www/logo_small.png">&nbsp;&nbsp;&nbsp;&nbsp;<img width="30" src="http://upload.wikimedia.org/wikipedia/commons/3/39/Nordpfeil.png">';
+		var div = L.DomUtil.create("div", "logo");
+		div.innerHTML = '<img width="80" src="http://maps.bgeo.es/geoserver/www/logo_small.png">';
         div.style.backgroundColor = "rgba(255,255,255,0.7)";
-		div.style.padding = "8px";
+		div.style.padding = "5px";
 		return div;
 	}
 	logo.addTo(map);
