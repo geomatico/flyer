@@ -20,11 +20,13 @@ define(["http", "xml"], function(http, xml) {
 					url = "proxy/";
 				}
 				return http.get(url, params).then(function(response) {
+				    if(!response) return false;
 					return xml.read(response, true);
 				});				
 			}
 
 			function getLayers(capabilities) {
+			    if(capabilities == false) return false;
 				var ret = [];
 				var layers = capabilities.WMS_Capabilities.Capability.Layer.Layer;
 				bbox = capabilities.WMS_Capabilities.Capability.Layer.BoundingBox;
