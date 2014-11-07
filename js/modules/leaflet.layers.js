@@ -1,7 +1,7 @@
 /**
  * @author Oscar Fonts <oscar.fonts@geomati.co>
  */
-define(["leaflet", "bing"], function(L) {
+define(["leaflet"], function(L) {
 
     var urls = {
         "mapbox":    "http://{s}.tiles.mapbox.com/v3/{styleId}/{z}/{x}/{y}.png",

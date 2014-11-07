@@ -8,11 +8,11 @@ var require = (function() {
 			"css": LIB_PATH + "css",
 			"jquery": "//code.jquery.com/jquery-2.1.1.min",
 			"jquery-xdomainrequest": LIB_PATH + "jquery-xdomainrequest-1.0.1.min",
-			"bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min",
+			//"bootstrap": "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min",
 			"leaflet": "//cdn.leafletjs.com/leaflet-0.7.3/leaflet",
 			"leaflet-info-wms": LIB_PATH + "L.TileLayer.InfoWMS",
-			"leaflet-hash": LIB_PATH + "leaflet-hash",
-			"bing": LIB_PATH + "leaflet-bing"
+			"leaflet-hash": LIB_PATH + "leaflet-hash"
+			//"bing": LIB_PATH + "leaflet-bing"
 		},
 		shim: {
 			"bootstrap": {
