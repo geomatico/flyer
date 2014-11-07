@@ -59,7 +59,8 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
                 layers: name,
                 version: '1.3.0',
                 format: 'image/png8',
-                transparent: 'true'
+                transparent: 'true',
+                info_format: 'application/json'
             });
             control.addOverlay(layer, title);
 			overlays.push(layer);

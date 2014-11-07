@@ -50,7 +50,7 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
           y: point.y,
           layers: this.wmsParams.layers,
           query_layers: this.wmsParams.layers,
-          info_format: 'text/html',
+          info_format: this.wmsParams.info_format,
           feature_count: 20
         };
 
@@ -67,6 +67,8 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
   
   showGetFeatureInfo: function (err, latlng, content) {
     if (err) { console.log(err); return; } // do nothing if there's an error
+    
+    content = '<div class="blue">'+content+'<div>';
     
 	if (!this._map._popup) {
       // Create a new popup
