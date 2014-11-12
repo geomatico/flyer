@@ -10,7 +10,3 @@ html, body, #map {
 	clear: none !important; /* must overwrite clear:both in .leaflet-control */
 	/*padding: 5px;*/
 }
-
-.blue {
-	color: #0000FF;
-}

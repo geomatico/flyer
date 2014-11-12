@@ -77,6 +77,21 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 		return div;
 	}
 	signature.addTo(map);
+	
+    /*var refresh = L.control({position: "bottomright"});
+    
+    refresh.onAdd = function(map) {
+        function refreshMap(e) {
+            map._resetView(map.getCenter(), map.getZoom(), true);
+            e.stopPropagation();
+        }
+        var div = L.DomUtil.create("div", "leaflet-control-attribution");
+        var butt = L.DomUtil.create("button", "butt", div);
+        butt.innerHTML = "Refresh";
+        L.DomEvent.addListener(butt, 'click', refreshMap);
+        return div;
+    }
+    refresh.addTo(map);*/
 
 	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
