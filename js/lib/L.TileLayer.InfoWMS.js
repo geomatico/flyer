@@ -65,14 +65,35 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
     return url + L.Util.getParamString(params, url, true);
   },
   
+  parseJsonToHtml: function (content) {
+      var json = jQuery.parseJSON(content);
+      var html = '';
+      if(json.features) {
+          for(var i = 0; i < json.features.length ; i++){
+              html += '<div class="info-layer">'+json.features[i].id.split('.')[0] +'</div>';
+              var fields = json.features[i].properties;
+              html += '<div class="info-fields">';
+              $.each(fields, function(key, data) {
+                  html += '<b>' + key + '</b>: ' + data + '<br/>';
+              });
+              html += '</div>';
+          }
+      }
+      
+      return html;
+  },
+  
   showGetFeatureInfo: function (err, latlng, content) {
+
     if (err) { console.log(err); return; } // do nothing if there's an error
     
-    content = '<div class="blue">'+content+'<div>';
+    //content = '<div>'+ Mustache.render("{{type}}", content)+'</div>';
+    //this could be better done with mustache or similar
+    if(this.wmsParams.info_format == "application/json") content = this.parseJsonToHtml(content);
     
 	if (!this._map._popup) {
       // Create a new popup
-      L.popup({ maxWidth: 800})
+      L.popup({ minWidth: 300, maxWidth: 300, maxHeight: 400})
        .setLatLng(latlng)
        .setContent(content).openOn(this._map);
 	} else {

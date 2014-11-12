@@ -12,6 +12,7 @@ var require = (function() {
 			"leaflet": "//cdn.leafletjs.com/leaflet-0.7.3/leaflet",
 			"leaflet-info-wms": LIB_PATH + "L.TileLayer.InfoWMS",
 			"leaflet-hash": LIB_PATH + "leaflet-hash"
+			//"mustache": "//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache"
 			//"bing": LIB_PATH + "leaflet-bing"
 		},
 		shim: {
@@ -32,7 +33,7 @@ var require = (function() {
 			},
 			"leaflet-info-wms": {
 				deps: ["leaflet"]
-			}
+			} 
 		}
 	};
 })();
