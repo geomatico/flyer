@@ -13,13 +13,18 @@ html, body, #map {
 .leaflet-popup-content-wrapper {
 	padding: 5px !important;
 }
+.leaflet-popup-scrolled {
+	border-bottom: 0 !important;
+	border-top: 0 !important;
+}
 .info-layer {
 	font-weight: bold;
 	background-color: #EEE;
+	border-radius: 5px;
 	margin-top: 10px;
 	margin-bottom: 3px;
 	margin-right: 10px;
-	padding: 2px;
+	padding: 2px 2px 2px 5px;
 }
 .info-fields {
 	color: #222;
