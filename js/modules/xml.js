@@ -164,7 +164,7 @@ define(function() {
 
 			// Strip namespaces from XML tags
 			if (clean) {
-				if (typeof myVar != 'undefined' && typeof myVar != 'string') {
+				if ( typeof myVar != 'string') {
 					xml = (new XMLSerializer()).serializeToString(xml);
 				}
 				xml = xml.replace(/<(\/?)([^:>\s]*:)?([^>]+)>/g, "<$1$3>");

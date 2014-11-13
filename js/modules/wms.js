@@ -14,11 +14,11 @@ define(["http", "xml"], function(http, xml) {
 					version: "1.3.0",
 					request: "GetCapabilities"
 				}
-				// If WMS address is absolute, proxify
-				if(url.indexOf("//") > -1) {
+				// If WMS address is absolute, proxify ... we'll use CORS!
+				/*if(url.indexOf("//") > -1) {
 					params.url = url;
 					url = "proxy/";
-				}
+				}*/
 				return http.get(url, params).then(function(response) {
 				    if(!response) return false;
 					return xml.read(response, true);

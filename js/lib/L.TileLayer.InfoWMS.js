@@ -21,8 +21,7 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
     $.ajax({
       url: url,
       success: function (data, status, xhr) {
-        var err = typeof data === 'string' ? null : data;
-        showResults(err, evt.latlng, data);
+        showResults(null, evt.latlng, data);
       },
       error: function (xhr, status, error) {
         showResults(error);  
@@ -55,18 +54,19 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
         };
 
     // Cross-domain info request with no CORS headers need a proxy...
-	if(this._url.indexOf("//") > -1) {
+	/*if(this._url.indexOf("//") > -1) {
 		params.url = this._url;
 		url = "proxy/";
 	} else {
 		url = this._url;
-	}
+	}*/
+    // we don't need proxy! CORS!
+    url = this._url;
     
     return url + L.Util.getParamString(params, url, true);
   },
   
-  parseJsonToHtml: function (content) {
-      var json = jQuery.parseJSON(content);
+  parseJsonToHtml: function (json) {
       var html = '';
       if(json.features) {
           for(var i = 0; i < json.features.length ; i++){
@@ -92,8 +92,13 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
     if(this.wmsParams.info_format == "application/json") content = this.parseJsonToHtml(content);
     
 	if (!this._map._popup) {
+	  var minWidth = 220, maxHeight = 400;
+	  if(L.Browser.mobile) {
+	      minWidth = 150;
+	      maxHeight = 200;
+	  }
       // Create a new popup
-      L.popup({ minWidth: 300, maxWidth: 300, maxHeight: 400})
+      L.popup({ minWidth: minWidth, maxWidth: 300, maxHeight: maxHeight})
        .setLatLng(latlng)
        .setContent(content).openOn(this._map);
 	} else {

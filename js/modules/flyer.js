@@ -19,7 +19,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var control = base.control;
 
 	var url = "/geoserver/";
-	if(window.location.host == "localhost") url = "http://maps.bgeo.es" + url;
+	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
 	// get workspace
 	var workspace = getQueryVariable("ws");
 	if(workspace) url += workspace + "/";
