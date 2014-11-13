@@ -10,6 +10,9 @@ html, body, #map {
 	clear: none !important; /* must overwrite clear:both in .leaflet-control */
 	/*padding: 5px;*/
 }
+.leaflet-popup-content-wrapper {
+	padding: 5px !important;
+}
 .info-layer {
 	font-weight: bold;
 	background-color: #EEE;
@@ -21,4 +24,4 @@ html, body, #map {
 .info-fields {
 	color: #222;
 	padding-left: 10px;
-}	
+}
