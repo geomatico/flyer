@@ -63,6 +63,10 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
                 info_format: 'application/json'
             });
             control.addOverlay(layer, title);
+            //we want top-to-bottom approach so we set zIndex manually
+            var zIndex = 100 - i;
+            layer.setZIndex(zIndex);
+            
 			overlays.push(layer);
 		}
 	}
