@@ -31,7 +31,7 @@ define(["leaflet"], function(L) {
     return {
         create: function(list) {
             var control = L.control.layers();
-            control.options = {autoZIndex: true, position: 'topright'};
+            //control.options = {autoZIndex: true, position: 'topright'};
             var layer;
 
             for (name in list) {
