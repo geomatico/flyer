@@ -1,7 +1,7 @@
 /**
  * @author Oscar Fonts <oscar.fonts@geomati.co>
  */
-define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms) {
+define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms, legend) {
 	var map = L.map('map').setView([41.5, 2], 8);
 	var hash = new L.Hash(map);
 	//map.locate({setView: true, maxZoom: 16});
@@ -29,6 +29,7 @@ define(['leaflet', 'leaflet.layers', 'wms', 'leaflet-info-wms', 'leaflet-hash', 
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays).then(centerMap);
 	var overlays = [];
+	var legend = legend.create();
 	
 	function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
