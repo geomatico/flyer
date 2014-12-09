@@ -1,7 +1,7 @@
 /**
  * @author Oscar Fonts <oscar.fonts@geomati.co>
  */
-define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms, legend) {
+define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms) {
 	var map = L.map('map').setView([41.5, 2], 8);
 	var hash = new L.Hash(map);
 	//map.locate({setView: true, maxZoom: 16});
@@ -16,7 +16,9 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
         //"Roads": {type: "bing", id: "Road"}
     });
 	base.addTo(map);
-	var control = base.control;
+	var layerControl = base.control;
+	var legendControl = L.control.legend();
+	legendControl.options = {position: 'bottomright'};
 
 	var url = "/geoserver/";
 	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
@@ -29,7 +31,6 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	var service = wms.service(url);
 	service.getLayers().then(updateOverlays).then(centerMap);
 	var overlays = [];
-	var legend = legend.create();
 	
 	function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -63,13 +64,15 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
                 transparent: 'true',
                 info_format: 'application/json'
             });
-            control.addOverlay(layer, title);
+
+            layerControl.addOverlay(layer, title);
             //we want top-to-bottom approach so we set zIndex manually
             var zIndex = 100 - i;
             layer.setZIndex(zIndex);
             
 			overlays.push(layer);
 		}
+		
 	}
 
 	// Add all sorts of decorations

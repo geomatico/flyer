@@ -4,7 +4,7 @@
 
 L.Control.Legend = L.Control.extend({
 	options: {
-		collapsed: true,
+		collapsed: false,
 		position: 'bottomright',
 		autoZIndex: true
 	},
