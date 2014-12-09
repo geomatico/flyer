@@ -86,6 +86,8 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	}
 	signature.addTo(map);
 	
+	legendControl.addTo(map);
+	
     /*var refresh = L.control({position: "bottomright"});
     
     refresh.onAdd = function(map) {
