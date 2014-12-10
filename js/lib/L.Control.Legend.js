@@ -13,8 +13,6 @@ L.Control.Legend = L.Control.extend({
 		L.setOptions(this, options);
 
 		this._layers = {};
-		this._lastZIndex = 0;
-		this._handlingClick = false;
 
 		for (i in overlays) {
 			this._addLayer(overlays[i], i, true);
@@ -41,7 +39,7 @@ L.Control.Legend = L.Control.extend({
 			layer: layer,
 			name: name,
 			overlay: overlay,
-			//url: L.Util.getParamString(params, url, true),
+			legendUrl: this._createWMSLegendUrl(layer),
 			visible: false
 		};
 		
@@ -55,10 +53,8 @@ L.Control.Legend = L.Control.extend({
 		//var overlaysPresent, i, obj;
 
 		for (i in this._layers) {
-			/*obj = this._layers[i];
-			this._addItem(obj);
-			overlaysPresent = overlaysPresent || obj.overlay;*/
-			if(this._layers[i].visible) this._container.innerHTML += this._layers[i].name + '<br><img src="http://maps.bgeo.es/geoserver/urbanisme/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=urb_sect" alt="legend"><br/>';
+			obj = this._layers[i];
+			if(obj.visible) this._addItem(obj);
 		}
 
 		return this;
@@ -76,13 +72,34 @@ L.Control.Legend = L.Control.extend({
 	},
 
 	_addItem: function (obj) {
-		var image = L.DomUtil.create('img', 'leaflet-buttons-control-img');
-		//image.setAttribute('src',obj.legendUrl);
-		image.setAttribute('src','http://maps.bgeo.es/geoserver/urbanisme/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=urb_sect');
 		
+		//if(!obj.legendUrl) return;
+		var div = L.DomUtil.create("div", "legend-text"); 
+		//obj.legendUrl = 'http://maps.bgeo.es/geoserver/urbanisme/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=urb_sect';
+
+		var image = L.DomUtil.create('img', 'leaflet-buttons-control-img');
+		image.setAttribute('src', obj.legendUrl);
+		div.innerHTML = '<br>' + obj.name;
+		
+		this._container.appendChild(div);
 		this._container.appendChild(image);
 
-		return image;
+		return this._container;
+	}, 
+	
+	_createWMSLegendUrl: function (layer) {
+		
+		var params = {
+		          request: 'GetLegendGraphic',
+		          //style: "urb_sect",
+		          layer: layer.wmsParams.layers,
+		          version: "1.1.1", // Force 1.1.1, don't use 1.3.0
+		          format: "image/png",
+		          height: 20,
+		          width: 20
+		        };		
+		
+		return layer._url + L.Util.getParamString(params);
 	}
 });
 
