@@ -30,3 +30,9 @@ html, body, #map {
 	color: #222;
 	padding-left: 10px;
 }
+.legend {
+	padding: 5px;
+	max-height: 300px;
+	width: 250px;
+	overflow: auto;
+}
