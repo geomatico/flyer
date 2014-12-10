@@ -66,12 +66,19 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
             });
 
             layerControl.addOverlay(layer, title);
+            legendControl.addOverlay(layer, title);
             //we want top-to-bottom approach so we set zIndex manually
             var zIndex = 100 - i;
             layer.setZIndex(zIndex);
             
 			overlays.push(layer);
 		}
+		
+		map.on('overlayadd overlayremove', function (e) {
+			legendControl._onLayerChange(e);
+		  });
+		
+		legendControl.addTo(map);
 		
 	}
 
@@ -86,7 +93,7 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	}
 	signature.addTo(map);
 	
-	legendControl.addTo(map);
+	
 	
     /*var refresh = L.control({position: "bottomright"});
     
