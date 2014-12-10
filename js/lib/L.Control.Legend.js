@@ -20,6 +20,9 @@ L.Control.Legend = L.Control.extend({
 		
 		this._container = L.DomUtil.create('div', 'leaflet-control-layers legend');
 		L.DomEvent.disableClickPropagation(this._container);
+		L.DomEvent.addListener(this._container, 'mousewheel', function (e) {
+		    L.DomEvent.stopPropagation(e);
+		});
 	},
 
 	onAdd: function () {
