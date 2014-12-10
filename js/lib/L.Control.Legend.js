@@ -10,7 +10,7 @@ L.Control.Legend = L.Control.extend({
 	},
 
 	initialize: function (overlays, options) {
-		L.setOptions(this, options);
+		L.setOptions(this, options);		
 
 		this._layers = {};
 
@@ -19,6 +19,7 @@ L.Control.Legend = L.Control.extend({
 		}
 		
 		this._container = L.DomUtil.create('div', 'leaflet-control-layers legend');
+		L.DomEvent.disableClickPropagation(this._container);
 	},
 
 	onAdd: function () {
