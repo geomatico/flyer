@@ -4,9 +4,7 @@
 
 L.Control.Legend = L.Control.extend({
 	options: {
-		collapsed: false,
-		position: 'bottomright',
-		autoZIndex: true
+		position: 'bottomright'
 	},
 
 	initialize: function (overlays, options) {
@@ -78,12 +76,12 @@ L.Control.Legend = L.Control.extend({
 	_addItem: function (obj) {
 		
 		//if(!obj.legendUrl) return;
-		var div = L.DomUtil.create("div", "legend-text"); 
+		var div = L.DomUtil.create('div', 'legend-title'); 
 		//obj.legendUrl = 'http://maps.bgeo.es/geoserver/urbanisme/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=urb_sect';
 
-		var image = L.DomUtil.create('img', 'leaflet-buttons-control-img');
+		var image = L.DomUtil.create('img', 'legend-img');
 		image.setAttribute('src', obj.legendUrl);
-		div.innerHTML = '<br>' + obj.name;
+		div.innerHTML = obj.name;
 		
 		this._container.appendChild(div);
 		this._container.appendChild(image);
@@ -94,13 +92,14 @@ L.Control.Legend = L.Control.extend({
 	_createWMSLegendUrl: function (layer) {
 		
 		var params = {
-		          request: 'GetLegendGraphic',
+		          request: "GetLegendGraphic",
 		          //style: "urb_sect",
 		          layer: layer.wmsParams.layers,
 		          version: "1.1.1", // Force 1.1.1, don't use 1.3.0
 		          format: "image/png",
 		          height: 20,
-		          width: 20
+		          width: 20,
+		          legend_options: "fontName:Helvetica%20Neue;fontAntiAliasing:true;fontColor:0x000033;fontSize:12"
 		        };		
 		
 		return layer._url + L.Util.getParamString(params);
