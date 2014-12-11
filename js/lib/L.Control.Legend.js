@@ -97,7 +97,7 @@ L.Control.Legend = L.Control.extend({
 		          version: "1.1.1", // Force 1.1.1, don't use 1.3.0
 		          format: "image/png",
 		          //css-like Geoserver-specific options
-		          legend_options: "fontName:Helvetica%20Neue;fontAntiAliasing:true;fontColor:0x000033;fontSize:12"
+		          legend_options: "fontName:Arial;fontAntiAliasing:true;fontColor:0x333333;fontSize:12"
 		        };		
 		
 		return layer._url + L.Util.getParamString(params);

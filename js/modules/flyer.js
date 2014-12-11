@@ -97,7 +97,7 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	var signature = L.control({position: "bottomright"});
 	signature.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "leaflet-control-attribution");
-		div.innerHTML = '<div>Assembled by <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014';
+		div.innerHTML = '<div>Developed by <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014';
 		return div;
 	}
 	signature.addTo(map);
