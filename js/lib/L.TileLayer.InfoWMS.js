@@ -97,10 +97,14 @@ L.TileLayer.InfoWMS = L.TileLayer.WMS.extend({
 	      minWidth = 150;
 	      maxHeight = 200;
 	  }
-      // Create a new popup
-      L.popup({ minWidth: minWidth, maxWidth: 300, maxHeight: maxHeight})
-       .setLatLng(latlng)
-       .setContent(content).openOn(this._map);
+      
+	  // Create a new popup
+      var popup = L.popup({ minWidth: minWidth, maxWidth: 300, maxHeight: maxHeight})
+       .setLatLng(latlng);
+      
+      //we don't want to show an empty popup or an error message
+      if(content) popup.setContent(content).openOn(this._map);
+      
 	} else {
 	  // Add content to popup
       this._map._popup.setContent(this._map._popup.getContent() + content);
