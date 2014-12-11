@@ -17,8 +17,8 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
     });
 	base.addTo(map);
 	var layerControl = base.control;
+	var legendExists = (getQueryVariable("leg") == "1") ? true : false;
 	var legendControl = L.control.legend();
-	legendControl.options = {position: 'bottomright'};
 
 	var url = "/geoserver/";
 	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
@@ -74,12 +74,21 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 			overlays.push(layer);
 		}
 		
+		// we only build legend if it's not a mobile device?
+		//if(legendExists && !L.Browser.mobile) buildLegend();
+		if(legendExists) buildLegend();
+		
+	}
+	
+	function buildLegend() {
+		
 		map.on('overlayadd overlayremove', function (e) {
 			legendControl._onLayerChange(e);
 		  });
 		
+		// add to map
 		legendControl.addTo(map);
-		
+			
 	}
 
 	// Add all sorts of decorations

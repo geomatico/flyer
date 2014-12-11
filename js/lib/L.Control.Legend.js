@@ -1,5 +1,6 @@
 /*
  * L.Control.Legend is a control to show legend of active layers
+ * @author Martí Pericay <marti@pericay.com>
  */
 
 L.Control.Legend = L.Control.extend({
@@ -24,7 +25,6 @@ L.Control.Legend = L.Control.extend({
 	},
 
 	onAdd: function () {
-		
 	    this._update();
 	    return this._container;
 	},
@@ -66,7 +66,7 @@ L.Control.Legend = L.Control.extend({
 
 		var id = L.stamp(e.layer);
 		
-		// necesitamos un parametro 'visible' de la capa que se pueda activar o desactivar
+		// we need a 'visible' param to activate/deactivate layers in legend
 		if(e.type == 'overlayadd') this._layers[id].visible = true;
 		if(e.type == 'overlayremove') this._layers[id].visible = false;
 		
@@ -77,7 +77,6 @@ L.Control.Legend = L.Control.extend({
 		
 		//if(!obj.legendUrl) return;
 		var div = L.DomUtil.create('div', 'legend-title'); 
-		//obj.legendUrl = 'http://maps.bgeo.es/geoserver/urbanisme/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&STRICT=false&style=urb_sect';
 
 		var image = L.DomUtil.create('img', 'legend-img');
 		image.setAttribute('src', obj.legendUrl);
@@ -97,8 +96,7 @@ L.Control.Legend = L.Control.extend({
 		          layer: layer.wmsParams.layers,
 		          version: "1.1.1", // Force 1.1.1, don't use 1.3.0
 		          format: "image/png",
-		          height: 20,
-		          width: 20,
+		          //css-like Geoserver-specific options
 		          legend_options: "fontName:Helvetica%20Neue;fontAntiAliasing:true;fontColor:0x000033;fontSize:12"
 		        };		
 		
