@@ -122,7 +122,8 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "logo");
-		div.innerHTML = '<img src="http://maps.bgeo.es/geoserver/www/logo_small.png">';
+		var logo = workspace ? "logos/" + workspace.toLowerCase() : 'logo_small';
+		div.innerHTML = '<img src="http://maps.bgeo.es/geoserver/www/' + logo + '.png">';
 		return div;
 	}
 	logo.addTo(map);
