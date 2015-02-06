@@ -12,7 +12,8 @@ var require = (function() {
 			"leaflet": "//cdn.leafletjs.com/leaflet-0.7.3/leaflet",
 			"leaflet-info-wms": LIB_PATH + "L.TileLayer.InfoWMS",
 			"leaflet-legend": LIB_PATH + "L.Control.Legend",
-			"leaflet-hash": LIB_PATH + "leaflet-hash"
+			"leaflet-hash": LIB_PATH + "leaflet-hash",
+			"jquery-simplemodal": LIB_PATH + "jquery.simplemodal.1.4.4.min"
 			//"mustache": "//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache"
 			//"bing": LIB_PATH + "leaflet-bing"
 		},
@@ -22,6 +23,9 @@ var require = (function() {
 			},
 			"jquery-xdomainrequest": {
 				deps: ["jquery"]
+			},
+			"jquery-simplemodal": {
+				deps: ["css!../../css/modal.css"]
 			},
 			"leaflet": {
 				deps: ["css!//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"]

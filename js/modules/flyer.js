@@ -1,7 +1,7 @@
 /**
  * @author Oscar Fonts <oscar.fonts@geomati.co>
  */
-define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms) {
+define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms, $) {
 	var map = L.map('map').setView([41.5, 2], 8);
 	var hash = new L.Hash(map);
 	//map.locate({setView: true, maxZoom: 16});
@@ -19,6 +19,8 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 	var layerControl = base.control;
 	var legendExists = (getQueryVariable("leg") == "1") ? true : false;
 	var legendControl = L.control.legend();
+
+	$('#modal').modal().open();
 
 	var url = "/geoserver/";
 	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
@@ -99,7 +101,7 @@ define(['leaflet', 'leaflet.layers','wms', 'leaflet-legend', 'leaflet-info-wms',
 		var div = L.DomUtil.create("div", "leaflet-control-attribution");
 		div.innerHTML = '<div>Developed by <a href="http://www.bgeo.es" target="_blank">BGEO</a>, <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014';
 		return div;
-	}
+	};
 	signature.addTo(map);
 	
 	

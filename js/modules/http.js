@@ -3,7 +3,11 @@
  */
 define(['base64', 'jquery', 'jquery-xdomainrequest'], function(base64, $) {
     
-    var auth = undefined;
+    //var auth = undefined;
+	var auth = {
+    		username: "stboi",
+    		password: "stboi"
+    };
     var use_cache = true;
     var cache = {};
     
@@ -24,6 +28,7 @@ define(['base64', 'jquery', 'jquery-xdomainrequest'], function(base64, $) {
         // WARNING: This sends a clear pw on the wire for every single AJAX request...
         if (auth) {
             request.beforeSend = function(xhr) {
+            	//alert(auth.username);
                 xhr.setRequestHeader("Authorization",
                     "Basic " + base64.encode(auth.username + ":" + auth.password));
             };
