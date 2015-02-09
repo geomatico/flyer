@@ -20,7 +20,8 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 	var legendExists = (getQueryVariable("leg") == "1") ? true : false;
 	var legendControl = L.control.legend();
 
-	$('#modal').modal().open();
+	$.modal('<img class="logo" src="http://maps.bgeo.es/logos/bgeo_trans.png" /><h3>Inicieu sessió a Geoserver</h3><input id="user" placeholder="Usuari"/><br/><input id="passwd" placeholder="Contrassenya" type="password"/><input type="submit" value="Enviar">').open();
+	
 
 	var url = "/geoserver/";
 	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
@@ -31,7 +32,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 	
 	// get capabilities, parse, get layers and center
 	var service = wms.service(url);
-	service.getLayers().then(updateOverlays).then(centerMap);
+	service.getLayers('stboi','stboi').then(updateOverlays).then(centerMap);
 	var overlays = [];
 	
 	function getQueryVariable(variable) {

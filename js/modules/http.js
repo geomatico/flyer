@@ -3,11 +3,7 @@
  */
 define(['base64', 'jquery', 'jquery-xdomainrequest'], function(base64, $) {
     
-    //var auth = undefined;
-	var auth = {
-    		username: "stboi",
-    		password: "stboi"
-    };
+    var auth = undefined;
     var use_cache = true;
     var cache = {};
     

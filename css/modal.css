@@ -1,0 +1,36 @@
+/*MODAL*/
+/*
+ * SimpleModal Basic Modal Dialog
+ * http://simplemodal.com
+ *
+ * Copyright (c) 2013 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+
+#basic-modal-content {display:none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color:#000; width: 100% !important}
+
+/* Container */
+#simplemodal-container {font-family: "Open Sans", Arial; height:300px; width:450px; color:#333; background-color:#EEE; border:4px solid #777; padding:12px; text-align: center; }
+#simplemodal-container .simplemodal-data {padding:8px;}
+#simplemodal-container a.modalCloseImg {background:url(../img/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#simplemodal-container h3 {color:#555; font-weight: 400}
+
+/* Marti */
+#simplemodal-container .logo {
+	opacity: 0.4;
+	margin-top: 25px;
+}
+#simplemodal-container input {
+	height: 35px; 
+	width: 260px; 
+	padding: 0px 5px;
+	box-sizing: border-box;
+}
+#simplemodal-container input[type="submit"] {
+    margin-top: 10px;
+}
