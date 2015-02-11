@@ -8,16 +8,17 @@ define(["http", "xml"], function(http, xml) {
             return bbox;
         },	    
 		service: function(url) {
-			function setCookie(user, pwd) {
+			/*function setCookie(user, pwd) {
 				var params = {
 						username: user,
 						password: pwd
 				}
+ 
 				http.get('http://maps.bgeo.es/geoserver/j_spring_security_check', params).then(function(response) {
 					//TODO: check that cookie is set
 				});				
-			}
-			function getCapabilities(user,pwd) {
+			}*/
+			function getCapabilities(user, pwd) {
 				var params = {
 					service: "wms",
 					version: "1.3.0",
@@ -31,6 +32,7 @@ define(["http", "xml"], function(http, xml) {
 				if(user && pwd) http.auth.set(user, pwd);
 				return http.get(url, params).then(function(response) {
 				    if(!response) return false;
+				    //TODO: check if user is logged in looking for a Cookie!
 					return xml.read(response, true);
 				});				
 			}
@@ -51,7 +53,7 @@ define(["http", "xml"], function(http, xml) {
 
 			return {
 				getLayers: function(user, pwd) {
-					setCookie(user, pwd);
+					//setCookie(user, pwd);
 					return getCapabilities(user, pwd).then(getLayers);
 				}
 			}

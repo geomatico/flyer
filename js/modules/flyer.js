@@ -20,9 +20,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 	var legendExists = (getQueryVariable("leg") == "1") ? true : false;
 	var legendControl = L.control.legend();
 
-	$.modal('<img class="logo" src="http://maps.bgeo.es/logos/bgeo_trans.png" /><h3>Inicieu sessió a Geoserver</h3><input id="user" placeholder="Usuari"/><br/><input id="passwd" placeholder="Contrassenya" type="password"/><input type="submit" value="Enviar">').open();
-	
-
+	var overlays = [];
 	var url = "/geoserver/";
 	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
 	// get workspace
@@ -30,10 +28,24 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 	if(workspace) url += workspace + "/";
 	url += "wms";
 	
-	// get capabilities, parse, get layers and center
-	var service = wms.service(url);
-	service.getLayers('stboi','stboi').then(updateOverlays).then(centerMap);
-	var overlays = [];
+	$.modal('<img class="logo" src="http://maps.bgeo.es/logos/bgeo_trans.png" /><h3>Inicieu sessió a Geoserver</h3><input id="modalUser" placeholder="Usuari"/><br/><input id="modalPwd" placeholder="Contrassenya" type="password"/><input id="modalSubmit" type="submit" value="Enviar">').open();
+	//provisional
+	$('#modalSubmit').bind('click', function() {
+		//remove old overlays
+		for (var i in overlays) {
+			layerControl.removeLayer(overlays[i]);
+		}
+		loadLayers(url, $('#modalUser').val(), $('#modalPwd').val());
+		$.modal.close();
+	});
+	
+	loadLayers(url);
+	
+	function loadLayers(url, user, pwd) {
+		// get capabilities, parse, get layers and center
+		var service = wms.service(url);
+		service.getLayers(user, pwd).then(updateOverlays).then(centerMap);
+	}
 	
 	function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
