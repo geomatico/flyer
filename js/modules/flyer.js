@@ -1,7 +1,7 @@
 /**
  * @author Oscar Fonts <oscar.fonts@geomati.co>
  */
-define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms, $) {
+define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 'leaflet-info-wms', 'leaflet-hash', 'css!flyer.css'], function(L, layers, wms, $, modal) {
 	var map = L.map('map').setView([41.5, 2], 8);
 	var hash = new L.Hash(map);
 	//map.locate({setView: true, maxZoom: 16});
@@ -22,29 +22,33 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 
 	var overlays = [];
 	var url = "/geoserver/";
-	if(window.location.host == "local.bgeo.loc") url = "http://maps.bgeo.es" + url;
 	// get workspace
 	var workspace = getQueryVariable("ws");
 	if(workspace) url += workspace + "/";
 	url += "wms";
 	
-	$.modal('<img class="logo" src="http://maps.bgeo.es/logos/bgeo_trans.png" /><h3>Inicieu sessió a Geoserver</h3><input id="modalUser" placeholder="Usuari"/><br/><input id="modalPwd" placeholder="Contrassenya" type="password"/><input id="modalSubmit" type="submit" value="Enviar">').open();
-	//provisional
-	$('#modalSubmit').bind('click', function() {
+	// we build the modal
+	if(getQueryVariable("login")){
+		buildLogin();
+	}
+	
+	//we load the default layers (before logging) 
+	loadLayers();
+	
+	function loadLayers(user, pwd) {
 		//remove old overlays
 		for (var i in overlays) {
 			layerControl.removeLayer(overlays[i]);
-		}
-		loadLayers(url, $('#modalUser').val(), $('#modalPwd').val());
-		$.modal.close();
-	});
-	
-	loadLayers(url);
-	
-	function loadLayers(url, user, pwd) {
+		}		
 		// get capabilities, parse, get layers and center
 		var service = wms.service(url);
 		service.getLayers(user, pwd).then(updateOverlays).then(centerMap);
+	}
+	
+	function buildLogin(user, pwd) {
+		modal.buildLogin();
+		//after logging in, we reload everything, with auth: capabilities, layer manager
+		modal.onSubmit(loadLayers);
 	}
 	
 	function getQueryVariable(variable) {
@@ -56,7 +60,6 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
             return pair[1];
           }
         } 
-        //alert('Query Variable ' + variable + ' not found');
     }
 	
 	function centerMap() {
@@ -116,7 +119,6 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'jquery-simplemodal', 'leaf
 		return div;
 	};
 	signature.addTo(map);
-	
 	
 	
     /*var refresh = L.control({position: "bottomright"});
