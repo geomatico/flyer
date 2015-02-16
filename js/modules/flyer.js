@@ -21,6 +21,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	var legendControl = L.control.legend();
 
 	var overlays = [];
+	var auth = false;
 	var url = "/geoserver/";
 	// get workspace
 	var workspace = getQueryVariable("ws");
@@ -36,15 +37,26 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	
 	function loadLayers(user, pwd) {
 		
+		auth = ((user && pwd) ? true : false);
+		
 		//remove old overlays
 		for (var i in overlays) {
 			layerControl.removeLayer(overlays[i]);
+			map.removeLayer(overlays[i]);
 		}		
 		// get capabilities, parse, get layers and center
 		var service = wms.service(url);
-		service.getLayers(user, pwd).then(updateOverlays).then(centerMap);
+		service.getLayers(user, pwd).then(updateOverlays, errorLayers).then(centerMap);
 	}
-
+	
+	function errorLayers() {
+		var msg = "";
+		if(workspace) {
+			var msg = "No layers found for workspace " + workspace;
+			if(auth) msg = "This user has no permission in workspace " + workspace;
+			modal.buildError(msg);
+		}
+	}
 	
 	function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
