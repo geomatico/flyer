@@ -49,6 +49,7 @@ define(['jquery-simplemodal'], function() {
 	return {
 		
 		buildError: function(msg) {
+	    	msg = "<h3>Error</h3>" + msg;
 			$.modal(msg).open();
         },
         
