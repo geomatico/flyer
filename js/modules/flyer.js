@@ -28,14 +28,14 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	url += "wms";
 	
 	// we build the modal
-	if(getQueryVariable("login")){
-		buildLogin();
-	}
+	//after submitting, we reload everything, with auth: capabilities, layer manager
+	modal.buildLogin({ autoOpen: getQueryVariable("login"), onSubmit: loadLayers });
 	
 	//we load the default layers (before logging) 
 	loadLayers();
 	
 	function loadLayers(user, pwd) {
+		
 		//remove old overlays
 		for (var i in overlays) {
 			layerControl.removeLayer(overlays[i]);
@@ -44,12 +44,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 		var service = wms.service(url);
 		service.getLayers(user, pwd).then(updateOverlays).then(centerMap);
 	}
-	
-	function buildLogin(user, pwd) {
-		modal.buildLogin();
-		//after logging in, we reload everything, with auth: capabilities, layer manager
-		modal.onSubmit(loadLayers);
-	}
+
 	
 	function getQueryVariable(variable) {
         var query = window.location.search.substring(1);
