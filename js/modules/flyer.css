@@ -47,9 +47,12 @@ html, body, #map {
 }
 #loginLink {
 	position: absolute;
-	left: 20px;
-	top: 80px;
+	right: 8px;
+	top: 10px;
 }
 #loginModal {
 	display: none;
+}
+.leaflet-control-layers {
+	margin-top: 45px !important; /* override default to make space for login */
 }

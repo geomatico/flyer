@@ -10,11 +10,10 @@ define(['jquery-simplemodal'], function() {
 			loginLink: "loginLink",
 			loginModal: "loginModal"
 	};
-	
-	var title = "BGEO log in";
+ 
 	var logo =  "http://maps.bgeo.es/logos/bgeo_trans.png";
 	
-	function buildLink(action) {
+	function buildLoginButton(action) {
 		$('#'+ids.loginLink).html("<button>Login</button>");
 		$('#'+ids.loginLink).bind('click', function() {
 			buildLogin({autoOpen: 1, onSubmit: action});
@@ -24,11 +23,11 @@ define(['jquery-simplemodal'], function() {
 	
 	function buildLogin(options, identifiers) {
 		if(identifiers) ids = identifiers;
-    	$('#'+ids.loginModal).html('<img class="logo" src="' + logo + '" /><h3>' + title + '</h3><input id="' + ids.user + '" placeholder="User"/><br/><input id="' + ids.pwd + '" placeholder="Password" type="password"/><input id="' + ids.submit + '" type="submit" value="Login">');
+    	$('#'+ids.loginModal).html('<img class="logo" src="' + logo + '" /><input id="' + ids.user + '" placeholder="User"/><br/><input id="' + ids.pwd + '" placeholder="Password" type="password"/><input id="' + ids.submit + '" type="submit" value="Login">');
     	var modalObj = $('#'+ids.loginModal).modal();
     	
     	//build button "Login"
-    	buildLink(options.onSubmit);
+    	buildLoginButton(options.onSubmit);
     	
     	if(options) {
     		if(options.onSubmit) onSubmit(options.onSubmit);
