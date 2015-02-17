@@ -50,7 +50,6 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	}
 	
 	function errorLayers() {
-		var msg = "";
 		if(workspace) {
 			var msg = "No layers found for workspace " + workspace;
 			if(auth) msg = "This user has no permission in workspace " + workspace;

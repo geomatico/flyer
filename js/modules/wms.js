@@ -42,6 +42,8 @@ define(["http", "xml"], function(http, xml) {
 				var ret = [];
 				var layers = capabilities.WMS_Capabilities.Capability.Layer.Layer;
 				bbox = capabilities.WMS_Capabilities.Capability.Layer.BoundingBox;
+				//only one layer?
+				if(!layers.length) layers = new Array(layers);
 				for (var i in layers) {
 					ret.push({
 						title: layers[i].Title,
