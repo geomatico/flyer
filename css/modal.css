@@ -32,4 +32,5 @@
 }
 #simplemodal-container input[type="submit"] {
     margin-top: 10px;
+    -webkit-appearance: button;
 }
