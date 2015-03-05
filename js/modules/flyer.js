@@ -70,7 +70,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	
 	function centerMap() {
 	    var bbox = wms.getBbox();
-	    if(!bbox) return;
+	    if(bbox == null) return;
 	    var southWest = L.latLng(bbox.miny, bbox.minx),
 	    northEast = L.latLng(bbox.maxy, bbox.maxx),
 	    bounds = L.latLngBounds(southWest, northEast);

@@ -20,20 +20,6 @@ define(["http", "xml"], function(http, xml) {
 					console.info("Cookie set");
 				});				
 			}
-			function getCookie(c_name) {
-			    if (document.cookie.length > 0) {
-			        c_start = document.cookie.indexOf(c_name + "=");
-			        if (c_start != -1) {
-			            c_start = c_start + c_name.length + 1;
-			            c_end = document.cookie.indexOf(";", c_start);
-			            if (c_end == -1) {
-			                c_end = document.cookie.length;
-			            }
-			            return unescape(document.cookie.substring(c_start, c_end));
-			        }
-			    }
-			    return "";
-			}
 			
 			function getCapabilities(user, pwd) {
 				var params = {
@@ -59,7 +45,7 @@ define(["http", "xml"], function(http, xml) {
 			    if(capabilities == false) return false;
 				var ret = [];
 				var layers = capabilities.WMS_Capabilities.Capability.Layer.Layer;
-				bbox = capabilities.WMS_Capabilities.Capability.Layer.BoundingBox;
+				if(layers) bbox = capabilities.WMS_Capabilities.Capability.Layer.BoundingBox;
 				//only one layer?
 				if(layers && !layers.length) layers = new Array(layers);
 				for (var i in layers) {
