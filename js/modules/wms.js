@@ -8,20 +8,25 @@ define(["http", "xml"], function(http, xml) {
             return bbox;
         },	    
 		service: function(url) {
+			
 			function setCookie(user, pwd) {
 				var params = {
 						username: user,
 						password: pwd
 				}
+				
+				var securityUrl = '/geoserver/j_spring_security_check';
  
-				http.get('/geoserver/j_spring_security_check', params).then(function(response) {
-					//TODO: error mangement
-					//if(getCookie("SPRING_SECURITY_REMEMBER_ME_COOKIE") == "") alert("Wrong ID");
+				return http.get(securityUrl).then(function(response) {
 					console.info("Cookie set");
+					return response;
+				}, function(error) {
+					console.info("Error getting cookie at " + securityUrl + ": " + error.error + " (code " + error.code + ")");
+					return 0;
 				});				
 			}
 			
-			function getCapabilities(user, pwd) {
+			function callCapabilities(user, pwd) {
 				var params = {
 					service: "wms",
 					version: "1.3.0",
@@ -38,7 +43,14 @@ define(["http", "xml"], function(http, xml) {
 				return http.get(url, params).then(function(response) {
 				    if(!response) return false;
 					return xml.read(response, true);
+				}, function(error){
+					return false;
 				});				
+			}
+			
+			function getCapabilities(user, pwd) {
+				// we need to make one call after the other or cookies are mixed!
+				return callCapabilities(user, pwd).then(setCookie(user, pwd));
 			}
 
 			function getLayers(capabilities) {
@@ -59,8 +71,8 @@ define(["http", "xml"], function(http, xml) {
 
 			return {
 				getLayers: function(user, pwd) {
-					if(user && pwd) setCookie(user, pwd);
-					return getCapabilities(user, pwd).then(getLayers);
+					//if(user && pwd) setCookie(user, pwd);
+					return getCapabilities(user,pwd).then(getLayers);
 				}
 			}
 		}
