@@ -50,9 +50,9 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	}
 	
 	function errorLayers() {
-		if(workspace) {
-			var msg = "No layers found for workspace " + workspace;
-			if(auth) msg = "This user has no permission in workspace " + workspace;
+		if(auth) {
+			var msg = "User or password not valid";
+			if(workspace) msg = "This user has no permission in workspace " + workspace;
 			modal.buildError(msg);
 		}
 	}
@@ -121,7 +121,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	var signature = L.control({position: "bottomright"});
 	signature.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "leaflet-control-attribution");
-		div.innerHTML = '<div>Developed by <a href="http://www.bgeo.es" target="_blank">BGEO</a>, <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014';
+		div.innerHTML = '<div>Developed by <a href="http://www.bgeo.es" target="_blank">BGEO</a>, <a href="http://fonts.cat" target="_blank">O.Fonts</a>, <a href="http://www.pericay.com" target="_blank">M.Pericay</a>, 2014-15';
 		return div;
 	};
 	signature.addTo(map);
