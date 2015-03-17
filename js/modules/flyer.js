@@ -28,9 +28,14 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	if(workspace) url += workspace + "/";
 	url += "wms";
 	
+	//get profile
+	var profileId = getQueryVariable("profile");
+	if(!profileId) profileId = window.location.hostname;
+	var profile = getProfile(profileId);
+	
 	// we build the modal
 	//after submitting, we reload everything, with auth: capabilities, layer manager
-	modal.buildLogin({ autoOpen: getQueryVariable("login"), onSubmit: loadLayers });
+	modal.buildLogin({ logo: profile.modalLogo,  autoOpen: getQueryVariable("login"), onSubmit: loadLayers });
 	
 	//we load the default layers (before logging) 
 	loadLayers();
@@ -67,6 +72,25 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
           }
         } 
     }
+	
+	function getProfile(profileId) {
+		var modalLogo, mainLogo;
+		switch(profileId) {
+			case "maps.geo-training.com":
+				modalLogo = "/logos/geot_trans.png";
+				defaultLogo = "/logos/geot.png";
+				break;
+			case "maps.bgeo.es":
+			default:
+				modalLogo = "/logos/bgeo_trans.png";
+				defaultLogo = "/logos/bgeo.png";
+				break;
+		}
+		return {
+			modalLogo: modalLogo,
+			defaultLogo: defaultLogo
+		}
+	}
 	
 	function centerMap() {
 	    var bbox = wms.getBbox();
@@ -145,8 +169,8 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "logo");
-		var logo = workspace ? workspace.toLowerCase() : 'bgeo';
-		div.innerHTML = '<img src="http://maps.bgeo.es/logos/' + logo + '.png">';
+		var logoSrc = workspace ? "/logos/" + workspace.toLowerCase() + ".png" : profile.defaultLogo;
+		div.innerHTML = '<img src="' + logoSrc + '">';
 		return div;
 	};
 	logo.addTo(map);

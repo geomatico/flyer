@@ -11,7 +11,7 @@ define(['jquery-simplemodal'], function() {
 			loginModal: "loginModal"
 	};
  
-	var logo =  "http://maps.bgeo.es/logos/bgeo_trans.png";
+	var logo =  "/logos/bgeo_trans.png";
 	
 	function buildLoginButton(action) {
 		$('#'+ids.loginLink).html("<button>Login</button>");
@@ -23,6 +23,7 @@ define(['jquery-simplemodal'], function() {
 	
 	function buildLogin(options, identifiers) {
 		if(identifiers) ids = identifiers;
+		if(options.logo) logo = options.logo;
     	$('#'+ids.loginModal).html('<img class="logo" src="' + logo + '" /><input id="' + ids.user + '" placeholder="User"/><br/><input id="' + ids.pwd + '" placeholder="Password" type="password"/><input id="' + ids.submit + '" type="submit" value="Login">');
     	var modalObj = $('#'+ids.loginModal).modal();
     	
