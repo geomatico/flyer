@@ -22,11 +22,13 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 
 	var overlays = [];
 	var auth = false;
-	var url = "/geoserver/";
+	var url;
+	var baseUrl = "/geoserver/";
 	// get workspace
-	var workspace = getQueryVariable("ws");
-	if(workspace) url += workspace + "/";
-	url += "wms";
+	var defaultWorkspace = "home";
+	// special users that don't have an associated workspace
+	var specialUsers = ["admin", "public"];
+	var workspace = getQueryVariable("ws"); 
 	
 	//get profile
 	var profileId = getQueryVariable("profile");
@@ -36,11 +38,17 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	// we build the modal
 	//after submitting, we reload everything, with auth: capabilities, layer manager
 	modal.buildLogin({ logo: profile.modalLogo,  autoOpen: getQueryVariable("login"), onSubmit: loadLayers });
-	
+	 
 	//we load the default layers (before logging) 
 	loadLayers();
 	
 	function loadLayers(user, pwd) {
+		url = baseUrl;
+		if(specialUsers.indexOf(user) == -1) {
+			if(user) url += user + "/";	
+			else url += workspace ? workspace + "/" : defaultWorkspace + "/";
+		}
+		url += "wms";
 		
 		auth = ((user && pwd) ? true : false);
 		
@@ -169,7 +177,7 @@ define(['leaflet', 'leaflet.layers','wms', 'jquery', 'modal', 'leaflet-legend', 
 	var logo = L.control({position: "topleft"});
 	logo.onAdd = function(map) {
 		var div = L.DomUtil.create("div", "logo");
-		var logoSrc = workspace ? "/logos/" + workspace.toLowerCase() + ".png" : profile.defaultLogo;
+		var logoSrc = (workspace && (workspace != defaultWorkspace)) ? "/logos/" + workspace.toLowerCase() + ".png" : profile.defaultLogo;
 		div.innerHTML = '<img src="' + logoSrc + '">';
 		return div;
 	};
